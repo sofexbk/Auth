@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { useSignup } from "../hooks/useSignup"
+import Lazy from "../utils/Lazy"
 
 const Signup = () => {
     const [email,setEmail]=useState('')
@@ -14,7 +15,8 @@ const Signup = () => {
         await signup(email,password)
     }
   return (
-    <div className="flex justify-center mt-20 p-20  border-8 border-yellow-600">
+<>        
+<div className="flex justify-center mt-20 p-20  border-8 border-yellow-600">
         <form className=" space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                   <div>
                       <label >Your email:</label>
@@ -37,9 +39,10 @@ const Signup = () => {
                   <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                       Already have an account? <Link to="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</Link>
                   </p>
-
         </form>
     </div>
+</>
+
   )
 }
 

@@ -15,6 +15,11 @@ const WorkoutSchema=new Schema({
         type:Number,
         required:true
     },
+    user_id:{
+        type:String,
+        required:true
+
+    }
 },{timestamps:true})//timestamps=>add a created property for us  (when docu was created)
 
 module.exports=mongoose.model('Workout',WorkoutSchema)

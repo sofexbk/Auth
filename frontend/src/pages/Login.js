@@ -3,22 +3,25 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Signup from './Signup'
 import { useLogin} from '../hooks/useLogin'
+import Lazy from "../utils/Lazy"
 
 const Login = () => {
 
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
     const {login,isLoading,error}=useLogin()
-    
+
     const handleSubmit=async(e)=>{
        e.preventDefault()
        await login(email,password)
-        console.log(email,password)
+        //console.log(email,password)
         setEmail('')
         setPassword('')
+        
     }
 
   return (
+    <>  
     <div className='flex justify-center mt-20 p-20  border-8 border-indigo-600  '>
          <form className="space-y-4 md:space-y-6  "  onSubmit={handleSubmit}>
                   <div>
@@ -45,6 +48,8 @@ const Login = () => {
                   </p>
          </form>
     </div>
+    </>
+
   )
 }
 
