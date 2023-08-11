@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"//elimonated useState //useState
 import {useWorkoutsContext} from '../hooks/useWorkoutsContext'
+import { useAuthContext } from "../hooks/useAuthContext"
 
 import { Button } from 'flowbite-react'
 import {Link} from 'react-router-dom'
@@ -11,16 +12,27 @@ import Lazy from "../utils/Lazy"
 const Home = () => {
   const {workouts,dispatch}= useWorkoutsContext()
   const [loader,setLoader]=useState(true)
+
+  const {user}=useAuthContext()
+  
   useEffect(()=>{
      const fetchWorkouts=async()=>{
         setLoader(false);
-        const response = await axios.get('/api/workouts')
+        const response = await axios.get('/api/workouts',{
+          headers:{
+            'Authorization':`Bearer ${user.token}`
+          }
+        })
         if(response.data){
            dispatch({type:'SET_WORKOUTS',payload:response.data})
         } 
      }
-     fetchWorkouts()
-  },[])
+     /*if(user){
+        fetchWorkouts()
+     }*/        fetchWorkouts()
+
+
+  },[dispatch,user])
   return (
    <div>
         <Link to='/work'>

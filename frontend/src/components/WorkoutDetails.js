@@ -3,13 +3,17 @@ import axios from 'axios';
 import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 import Swal from 'sweetalert2';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
-
+import { useAuthContext } from '../hooks/useAuthContext';
 
 
 const WorkoutDetails = ({workout,index}) => {   
 const {dispatch}=useWorkoutsContext()
+ const {user}=useAuthContext()
 
   const handleClick=async()=>{
+       if(!user){
+        return 
+       }
     try {
       const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -28,7 +32,11 @@ const {dispatch}=useWorkoutsContext()
       reverseButtons: true
     }).then( async (result) => {
       if (result.isConfirmed) {
-        const response = await axios.delete('/api/workouts/'+workout._id) 
+        const response = await axios.delete('/api/workouts/'+workout._id,{
+          headers:{
+            'Authorization':`Bearer ${user.token}`
+          }
+        }) 
         swalWithBootstrapButtons.fire(
           'Deleted!',
           'Your file has been deleted.',
@@ -49,7 +57,11 @@ const {dispatch}=useWorkoutsContext()
 
     const handleEdit=async()=>{
       try {
-         const response=await axios.patch('/api/workouts/'+workout._id)
+         const response=await axios.patch('/api/workouts/'+workout._id,{
+          headers:{
+            'Authorization':`Bearer ${user.token}`
+          }
+        })
          console.log(response.data)
       }catch (error) {
          console.log(error.response.data.error)

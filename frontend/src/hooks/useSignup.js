@@ -24,7 +24,7 @@ export const useSignup = () => {
             Swal.fire({
               position: 'middle',
               icon: 'success',
-              title: 'Your account hase been created',
+              title: 'Your account has been created',
               showConfirmButton: false,
               timer: 1500
             })
