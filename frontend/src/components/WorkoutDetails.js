@@ -4,6 +4,8 @@ import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 import Swal from 'sweetalert2';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
+
+
 const WorkoutDetails = ({workout,index}) => {   
 const {dispatch}=useWorkoutsContext()
 
@@ -55,7 +57,8 @@ const {dispatch}=useWorkoutsContext()
   }
 
   return (
-<div className="flex">
+    <>
+        <div className="flex">
   <Card className="max-w-sm m-7 text-center content-center" key={index}>
      <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">  {workout.title} </h5>
     <p className="font-normal text-gray-700 dark:text-gray-400">    
@@ -85,6 +88,8 @@ const {dispatch}=useWorkoutsContext()
 
 
 </div>
+    </>
+
   )
 }
 
